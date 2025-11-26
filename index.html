@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HeredaFácil – Guía inteligente para procesos de sucesión</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="assets/app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <h1 class="brand">HEREDITAS</h1>
+      <nav class="nav">
+        <a href="#explicacion">Qué es</a>
+        <a href="#formulario">Análisis</a>
+        <a href="#educacion">Aprende</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container" id="home">
+      <div class="hero-left">
+        <h2>HeredaFácil – Guía inteligente para procesos de sucesión</h2>
+        <p class="lead">Comprende tu proceso de herencia antes de ir a la notaría o al juzgado.</p>
+        <button id="startBtn" class="cta">Comenzar análisis</button>
+      </div>
+      <div class="hero-right">
+        <!-- Using uploaded image provided by user -->
+        <img src="/mnt/data/f4b1f6d1-43fc-4a55-9792-014c41acb285.png" alt="Herencias" class="hero-image">
+      </div>
+    </section>
+
+    <section class="container panel" id="explicacion">
+      <h3>¿De qué trata HeredaFácil?</h3>
+      <p>HeredaFácil es una herramienta que analiza tu caso familiar y te muestra la ruta para iniciar un proceso sucesoral, los documentos necesarios y los posibles riesgos legales.</p>
+      <div class="icons">
+        <div class="icon">
+          <div class="round">⚖️</div>
+          <div class="label">Ruta notarial o judicial</div>
+        </div>
+        <div class="icon">
+          <div class="round">📁</div>
+          <div class="label">Documentos requeridos</div>
+        </div>
+        <div class="icon">
+          <div class="round">🚦</div>
+          <div class="label">Semáforo de riesgo</div>
+        </div>
+        <div class="icon">
+          <div class="round">📝</div>
+          <div class="label">Recomendaciones legales</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container panel" id="formulario">
+      <h3>Formulario inteligente</h3>
+      <form id="caseForm">
+        <div class="row">
+          <label>Nombre completo</label>
+          <input type="text" id="fullName" required placeholder="Ej: María Pérez">
+        </div>
+        <div class="row">
+          <label>Cédula</label>
+          <input type="text" id="cedula" required placeholder="Número de identificación">
+        </div>
+        <div class="row">
+          <label>Departamento (dónde vive)</label>
+          <input type="text" id="department" required placeholder="Ej: Cundinamarca">
+        </div>
+
+        <div class="row inline">
+          <label>¿Hubo testamento?</label>
+          <select id="testamento">
+            <option value="no">No</option>
+            <option value="si">Sí</option>
+            <option value="ns">No sé</option>
+          </select>
+        </div>
+
+        <div class="row inline">
+          <label>¿Hay cónyuge?</label>
+          <select id="conyuge">
+            <option value="no">No</option>
+            <option value="si">Sí</option>
+          </select>
+        </div>
+
+        <div class="row inline">
+          <label>¿Cuántos hijos?</label>
+          <input type="number" id="hijos" min="0" value="0">
+        </div>
+
+        <div class="row inline">
+          <label>¿Hay menores de edad?</label>
+          <select id="menores">
+            <option value="no">No</option>
+            <option value="si">Sí</option>
+          </select>
+        </div>
+
+        <div class="row inline">
+          <label>¿Hay bienes inmuebles?</label>
+          <select id="inmuebles">
+            <option value="no">No</option>
+            <option value="si">Sí</option>
+          </select>
+        </div>
+
+        <div class="row inline">
+          <label>¿Existe desacuerdo entre herederos?</label>
+          <select id="conflicto">
+            <option value="no">No</option>
+            <option value="si">Sí</option>
+            <option value="parcial">Parcial</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn">Analizar caso</button>
+          <button type="button" id="clearBtn" class="btn ghost">Limpiar</button>
+        </div>
+      </form>
+
+      <section id="results" class="results hidden">
+        <h4>Resultados del análisis</h4>
+        <div id="processType" class="card"></div>
+        <div id="steps" class="card"></div>
+        <div id="docs" class="card"></div>
+        <div id="risk" class="card"></div>
+
+        <div class="actions">
+          <button id="downloadPdf" class="btn">Descargar informe (PDF)</button>
+        </div>
+
+        <div class="nearby panel small">
+          <h5>Notarías cercanas (búsqueda por departamento)</h5>
+          <button id="findNotarias" class="btn small">Buscar notarías cerca</button>
+          <ul id="notariasList"></ul>
+        </div>
+
+        <div class="panel small">
+          <h5>¿Necesitas un abogado?</h5>
+          <p>Lista de abogados disponibles:</p>
+          <ul id="lawyersList"></ul>
+        </div>
+
+      </section>
+    </section>
+
+    <section class="container panel" id="educacion">
+      <h3>Sección educativa</h3>
+      <div class="grid-3">
+        <div class="edu card">
+          <h4>Legado</h4>
+          <p>Disposición por la cual una persona deja bienes o derechos a otra al morir.</p>
+        </div>
+        <div class="edu card">
+          <h4>Sucesión</h4>
+          <p>Conjunto de actos para transmitir el patrimonio de una persona fallecida a sus herederos.</p>
+        </div>
+        <div class="edu card">
+          <h4>Albacea</h4>
+          <p>Persona encargada de ejecutar las disposiciones del testamento.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>HeredaFácil no reemplaza asesoría jurídica. Brinda orientación preliminar para facilitar tu proceso sucesoral.</small>
+      <div class="foot-right">© HeredaFácil</div>
+    </div>
+  </footer>
+
+</body>
+</html>
